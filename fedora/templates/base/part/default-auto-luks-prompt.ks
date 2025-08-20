@@ -20,6 +20,12 @@ btrfs /.snapshots --subvol --name=@snapshots fedora
 #Required for separate modules subvolume
 #without system may boot without all modules loaded
 %post --interpreter /bin/bash
+mkdir -p /etc/systemd/system/local-fs.target.d/
+cat << EOF > /etc/systemd/system/local-fs.target.d/modules.conf
+[Unit]
+Requires=lib-modules.mount
+After=lib-modules.mount
+EOF
 
 mkdir -p /etc/systemd/system/systemd-modules-load.service.d
 echo "[Unit]\nRequiresMountsFor=/usr/lib/modules" > /etc/systemd/system/systemd-modules-load.service.d/override.conf
