@@ -1,53 +1,38 @@
-%pre --interpreter /bin/bash 
-# Set root password
-
-#exec < /dev/tty6 > /dev/tty6 2> /dev/tty6
-#chvt 6
-
-cat > /tmp/hashpw.py << EOF
+%pre --interpreter /usr/bin/python3
 import hashlib
-import base64
-import os
+import secrets
 import getpass
+import sys
 
-def generate_openssl_passwd6(password):
-    # Generate a random salt of 8 bytes
-    salt = os.urandom(8)
+def generate_linux_hash(password):
+    # Standard SHA-512 crypt prefix
+    prefix = "$6$"
+    # Generate a random 16-character salt
+    salt_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./"
+    salt = "".join(secrets.choice(salt_chars) for _ in range(16))
+    
+    h = hashlib.sha512()
+    h.update((salt + password).encode('utf-8'))
 
-    # Create a SHA512 hash object
-    hash_obj = hashlib.sha512()
+    hashed = h.hexdigest()
+    
+    return f"{prefix}{salt}${hashed}"
 
-    # Combine the password and salt, and hash them
-    hash_obj.update(password.encode('utf-8'))  # Encode password to bytes
-    hash_obj.update(salt)
+try:
+    while True:
+        pw = getpass.getpass("Root password: ")
+        confirm = getpass.getpass("Verify password: ")
+        if pw == confirm and pw != "":
+            # Using hashlib to generate the hex digest 
+            hashed_pw = generate_linux_hash(pw)
+            break
+        print("Passwords did not match. Try again.", file=sys.stderr) [cite: 3]
 
-    # Derive the final hash using a 64-bit salt
-    final_hash = hash_obj.digest()
+    with open("/tmp/root-pw.ks", "w") as f:
+        f.write(f"rootpw --iscrypted {hashed_pw}\n") [cite: 2]
 
-    # Concatenate the salt and hash, and encode in Base64
-    encoded_hash = base64.b64encode(salt + final_hash).decode('utf-8')
-
-    # Add the '$6$' prefix to indicate SHA512-crypt
-    return f"$6${encoded_hash}"
-
-bad_pw = True
-while bad_pw:
-    password = getpass.getpass("Root password:")
-    confirm = getpass.getpass("Verify password:")
-    if(password == confirm):
-        bad_pw = False
-    else:
-        print("Passwords did not match. Try again.")
-
-print(generate_openssl_passwd6(password))
-EOF
-
-hashed_pw=$(python3 /tmp/hashpw.py | tail -n 1)
-echo "rootpw --iscrypted $hashed_pw" > /tmp/root-config.ks
-echo "rootpw --iscrypted $hashed_pw" 
-read -p "PAUSED"
-#chvt 1
-#exec < /dev/tty1 > /dev/tty1 2> /dev/tty1
+except Exception as e:
+    sys.exit(1)
 %end
 
-%include /tmp/root-config.ks
+%include /tmp/root-pw.ks

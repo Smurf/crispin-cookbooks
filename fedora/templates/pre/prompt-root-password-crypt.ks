@@ -1,6 +1,6 @@
 %pre --interpreter /bin/bash 
-
-# This will eventually be depreciated.
+# THIS Should only be used with RHEL 8/9 kickstarts!
+# Please use prompt-root-password.ks template instead
 hashed_pw=$(python3 -c 'import crypt,getpass;pw=getpass.getpass("Root password:");print(crypt.crypt(pw, crypt.mksalt()) if (pw==getpass.getpass("Verify password: ")) else exit())')
 
 # Set root password
