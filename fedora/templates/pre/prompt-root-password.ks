@@ -29,7 +29,6 @@ echo "rootpw --iscrypted $HASH" > "$FILE"
 echo "--------------------------------------"
 echo "Success! Kickstart file written to: $FILE"
 echo "Content: $(cat $FILE)"
-read -p "PAUSED"
 chvt 1
 exec < /dev/tty1 > /dev/tty1 2> /dev/tty1
 %end
