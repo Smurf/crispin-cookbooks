@@ -20,19 +20,35 @@ btrfs /.snapshots --subvol --name=@snapshots fedora
 #Required for separate modules subvolume
 #without system may boot without all modules loaded
 %post --interpreter /bin/bash
-mkdir -p /etc/systemd/system/local-fs.target.d/
-cat << EOF > /etc/systemd/system/local-fs.target.d/modules.conf
-[Unit]
-Requires=lib-modules.mount
-After=lib-modules.mount
-EOF
 
-mkdir -p /etc/systemd/system/systemd-modules-load.service.d
-echo "[Unit]\nRequiresMountsFor=/usr/lib/modules" > /etc/systemd/system/systemd-modules-load.service.d/override.conf
+ROOT_UUID=$(findmnt -no UUID /)
 
-mkdir -p /etc/sysstemd/system/systemd-zram-setup@zram0.service.d/
-echo "[Unit]\nRequiresMountsFor=/usr/lib/modules" > /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf
+MOUNT_POINT="/usr/lib/modules"
+MOUNT_LINE="UUID=${ROOT_UUID} ${MOUNT_POINT} btrfs subvol=@modules,defaults,x-initrd.mount,x-systemd.requires-mounts-for=/ 0 0"
 
+if grep -q "${MOUNT_POINT}" /etc/fstab; then
+    sed -i "s|.*${MOUNT_POINT}.*|${MOUNT_LINE}|" /etc/fstab
+else
+    echo "${MOUNT_LINE}" >> /etc/fstab
+fi
+
+# 4. CRITICAL: Rebuild the initramfs
+# We must do this so the initrd sees the new x-initrd.mount instructions
+dracut -f
+
+#mkdir -p /etc/systemd/system/local-fs.target.d/
+#cat << EOF > /etc/systemd/system/local-fs.target.d/modules.conf
+#[Unit]
+#Requires=lib-modules.mount
+#After=lib-modules.mount
+#EOF
+#
+#mkdir -p /etc/systemd/system/systemd-modules-load.service.d
+#echo "[Unit]\nRequiresMountsFor=/usr/lib/modules" > /etc/systemd/system/systemd-modules-load.service.d/override.conf
+#
+##mkdir -p /etc/sysstemd/system/systemd-zram-setup@zram0.service.d/
+##echo "[Unit]\nRequiresMountsFor=/usr/lib/modules" > /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf
+#
 echo "zram" > /etc/modules-load.d/zram.conf
 
 systemctl daemon-reload

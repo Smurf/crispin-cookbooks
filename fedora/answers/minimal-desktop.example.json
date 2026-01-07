@@ -1,9 +1,0 @@
-{
-    "hostname":"somehostname",
-    "luks_key": "somepassword",
-    "root_ssh_keys": [ "ssh-rsa AAAAB3.....eBqDhmMjjlc2qtPXfspFlMjpprEAPvO7GSYhsZ+255/yLF0SIf+z me@example.com", "ssh-rsa AAAAB3.....eBqDhmMjjlc2qtPXfspFlMjpprEAPvO7GSYhsZ+255/yLF0SIf+z me2@example.com" ],
-    "ansible_repo": "https://github.com/Smurf/fedora-workstation.git",
-    "branch":"f-40-minimal-dev",
-    "lock_root":"true",
-    "disk_dev": "/dev/nvme0n1"
-}

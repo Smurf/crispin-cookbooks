@@ -4,7 +4,8 @@ chvt 6
 
 # Set default boot target and remove gnome setup
 dnf remove gnome-initial-setup -y
-ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target
+systemctl enable gdm
+systemctl set-default graphical.target
 
 chvt 1
 exec < /dev/tty1 > /dev/tty1 2> /dev/tty1
