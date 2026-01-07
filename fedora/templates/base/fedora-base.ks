@@ -21,10 +21,3 @@ firstboot --enable
 {% if lock_root|lower == "true" %}
 rootpw --lock
 {% endif %}
-
-%post --interpreter /bin/bash
-
-systemctl enable gdm
-systemctl set-default graphical.target
-
-%end
