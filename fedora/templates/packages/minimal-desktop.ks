@@ -7,7 +7,6 @@
 
 # Install workstation-product-environment to resolve RhBug:1891500
 @^workstation-product-environment
-
 # Install cracklib-dicts and libpwquality for cryptsetup
 cracklib
 cracklib-dicts
