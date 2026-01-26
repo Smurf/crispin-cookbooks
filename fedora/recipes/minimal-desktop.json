@@ -1,0 +1,27 @@
+{
+  "type": "kickstart",
+  "output": "iso",
+  "recipe": {
+    "base": [
+      "fedora-base.ks",
+      "part/default-auto-luks-prompt.ks",
+      "network/dhcp-auto-network.ks"
+    ],
+    "repos": [
+      "fedora.ks"
+    ],
+    "pre": [
+      "prompt-root-password.ks"
+    ],
+    "packages": [
+      "minimal-desktop.ks"
+    ],
+    "post": [
+      "enable-flatpak.ks",
+      "ansible-pull.ks",
+      "root-ssh-keys.ks",
+      "default-boot.ks",
+      "create-user.ks"
+    ]
+  }
+}

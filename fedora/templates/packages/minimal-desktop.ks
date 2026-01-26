@@ -7,14 +7,18 @@
 
 # Install workstation-product-environment to resolve RhBug:1891500
 @^workstation-product-environment
-
 # Install cracklib-dicts and libpwquality for cryptsetup
 cracklib
 cracklib-dicts
 libpwquality
 
-# Install rpmfusion gpg keys
+# Install gpg keys
 distribution-gpg-keys
+
+#zram
+zram
+zram-generator
+zram-generator-defaults
 
 # Exclude unwanted packages
 -gfs2-utils
@@ -23,5 +27,11 @@ distribution-gpg-keys
 -rhythmbox
 -virtualbox-guest-additions
 -gnome-software
+-gnome-tour
+-gnome-boxes
+-gnome-maps
+-snapshot
+-mediawriter
+-PackageKit
+-PackageKit-command-not-found
 %end
-

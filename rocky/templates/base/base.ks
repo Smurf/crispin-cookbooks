@@ -4,7 +4,6 @@
 # Use graphical install
 text
 
-rootpw --iscrypted {{ rootpw_sha256 }}
 reboot
 skipx
 
@@ -14,8 +13,11 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
 # System timezone
-timezone America/New_York --utc
+timezone {{ timezone }} --utc
 
-# Run the Setup Agent on first boot
-firstboot --enable
-
+# Do not run the Setup Agent on first boot
+firstboot --disable
+ 
+{% if lock_root|lower == "true" %}
+rootpw --lock
+{% endif %}

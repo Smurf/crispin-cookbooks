@@ -1,0 +1,27 @@
+{
+  "type": "kickstart",
+  "distro": "rocky",
+  "output": "iso",
+  "recipe": {
+    "base": [
+      "base.ks",
+      "part/xfs-part.ks",
+      "network/dhcp-auto-network.ks"
+    ],
+    "repos": [
+      "rocky.ks"
+    ],
+    "pre": [
+      "prompt-root-password.ks"
+    ],
+    "packages": [
+      "default-server.ks"
+    ],
+    "post": [
+      "enable-flatpak.ks",
+      "ansible-pull.ks",
+      "root-ssh-keys.ks",
+      "create-user.ks"
+    ]
+  }
+}

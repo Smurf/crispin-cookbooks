@@ -18,6 +18,6 @@ timezone America/New_York --utc
 # Run the Setup Agent on first boot
 firstboot --enable
  
-{% if set_root|lower == "false" %}
+{% if lock_root|lower == "true" %}
 rootpw --lock
 {% endif %}

@@ -1,7 +1,7 @@
 output/
 */answers/*
 !.gitkeep
-!*.example.json
+!*example.json
 *.iso
 .venv
 secrets/*
