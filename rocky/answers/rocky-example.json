@@ -1,0 +1,17 @@
+{
+    "metadata": {
+      "crispin_version": ">=0.5.0",
+      "distro": "Fedora",
+      "releasever": "43",
+      "recipe": "rocky-server",
+      "source": "https://download.rockylinux.org/pub/rocky/10/BaseOS/x86_64/os/"
+    },
+    "hostname":"rockybox",
+    "luks_key": "rocky4lyfe",
+    "root_ssh_keys": [ "ssh-rsa AAAAB3NzaC1yc2EAAAADATMQRvc0+YNRx52tDlnevergunnagiveyouupnevergunnaletyoudown/pJ6uzFlUQyboufoRV8PQXehevHDRs764TFRGbXs9JCbpT/y2pPF/1Ib0XWgyvjqF2WDvGpx6jN/tOIU0dlYznKHGbYKeZukYCYFKHgJPhF4celNVp1GSZA7sHjUsa4ef16nh0deT1KUgU3Ef7x9wuLz7ct6eLVASmzG02RmFG2Nzil+n61WhmfFKCp3tIevAM4Ap7afIDIKimoKK4GIGe9AU+iaxl4naN1J4jjFbyU8iI/S5/goI0XHGotpSvTQNL5znx6sOJkPQZSgsWjCw== you@computah" ],
+    "ansible_repo": "https://github.com/Smurf/fedora-workstation.git",
+    "branch":"f43-minimal-dev",
+    "lock_root":"false",
+    "disk_dev": "/dev/nvme0n1",
+    "timezone": "America/Chicago"
+}
