@@ -2,7 +2,8 @@
 exec < /dev/tty6 > /dev/tty6 2> /dev/tty6
 chvt 6
 
-dnf install ansible ansible-core -y
+dnf install epel-release -y
+dnf install ansible-core -y
 # Install useful ansible galaxy packages
 ansible-galaxy collection install community.general --force
 
