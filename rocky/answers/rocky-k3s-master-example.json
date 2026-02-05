@@ -1,0 +1,26 @@
+{
+    "metadata": {
+      "crispin_version": ">=0.5.0",
+      "distro": "RockyLinux",
+      "releasever": "10",
+      "recipe": "rocky-server-k3s-node",
+      "source": "https://download.rockylinux.org/pub/rocky/10/BaseOS/x86_64/os/"
+    },
+    "hostname":"node1",
+    "luks_key": "rocky4lyfe",
+    "root_ssh_keys": [ "ssh-rsa AAAAB3NzaC1yc2EAAAADATMQRvc0+YNRx52tDlnevergunnagiveyouupnevergunnaletyoudown/pJ6uzFlUQyboufoRV8PQXehevHDRs764TFRGbXs9JCbpT/y2pPF/1Ib0XWgyvjqF2WDvGpx6jN/tOIU0dlYznKHGbYKeZukYCYFKHgJPhF4celNVp1GSZA7sHjUsa4ef16nh0deT1KUgU3Ef7x9wuLz7ct6eLVASmzG02RmFG2Nzil+n61WhmfFKCp3tIevAM4Ap7afIDIKimoKK4GIGe9AU+iaxl4naN1J4jjFbyU8iI/S5/goI0XHGotpSvTQNL5znx6sOJkPQZSgsWjCw== you@computah" ],
+    "lock_root":"false",
+    "disk_dev": "/dev/nvme0n1",
+    "timezone": "America/Chicago",
+    "network": {
+      "ip": "192.168.2.20",
+      "netmask": "255.255.255.0",
+      "gateway": "192.168.2.1",
+      "dns": "1.1.1.1"
+    },
+    "ansible_pull":{
+      "repo_url": "https://github.com/Smurf/k3s-cluster.git",
+      "branch": "ansible-pull",
+      "options": "-e \"node_role=master\" ansible/local.yml"
+    }
+}
