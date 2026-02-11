@@ -19,6 +19,7 @@
     ],
     "post": [
       "root-ssh-keys.ks",
+      "laptop-power-config.ks",
       "ansible-pull.ks",
       "util/pause.ks"
     ]
