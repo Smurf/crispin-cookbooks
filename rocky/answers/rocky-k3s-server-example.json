@@ -21,6 +21,6 @@
     "ansible_pull":{
       "repo_url": "https://github.com/Smurf/k3s-cluster.git",
       "branch": "ansible-pull",
-      "options": "-e \"node_role=server\" ansible/local.yml"
+      "options": "-e \"node_role=server kickstart=true\" ansible/local.yml"
     }
 }
