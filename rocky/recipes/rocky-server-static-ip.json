@@ -6,7 +6,7 @@
     "base": [
       "base.ks",
       "part/xfs-part.ks",
-      "network/dhcp-auto-network.ks"
+      "network/static-allocation.ks"
     ],
     "repos": [
       "rocky.ks"

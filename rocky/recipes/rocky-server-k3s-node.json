@@ -19,7 +19,8 @@
     ],
     "post": [
       "root-ssh-keys.ks",
-      "create-user.ks"
+      "ansible-pull.ks",
+      "util/pause.ks"
     ]
   }
 }
