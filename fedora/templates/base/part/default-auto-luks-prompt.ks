@@ -36,19 +36,7 @@ fi
 # We must do this so the initrd sees the new x-initrd.mount instructions
 dracut -f
 
-#mkdir -p /etc/systemd/system/local-fs.target.d/
-#cat << EOF > /etc/systemd/system/local-fs.target.d/modules.conf
-#[Unit]
-#Requires=lib-modules.mount
-#After=lib-modules.mount
-#EOF
-#
-#mkdir -p /etc/systemd/system/systemd-modules-load.service.d
-#echo "[Unit]\nRequiresMountsFor=/usr/lib/modules" > /etc/systemd/system/systemd-modules-load.service.d/override.conf
-#
-##mkdir -p /etc/sysstemd/system/systemd-zram-setup@zram0.service.d/
-##echo "[Unit]\nRequiresMountsFor=/usr/lib/modules" > /etc/systemd/system/systemd-zram-setup@zram0.service.d/override.conf
-#
+# Force zram to load
 echo "zram" > /etc/modules-load.d/zram.conf
 
 systemctl daemon-reload
